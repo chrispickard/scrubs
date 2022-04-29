@@ -1,0 +1,20 @@
+[package]
+name = "scrubs"
+version = "0.1.0"
+edition = "2021"
+
+# See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
+
+[[bin]]
+name = "scrubs"
+path = "src/main.rs"
+
+[[bin]]
+name = "umux"
+path = "src/bin/umux.rs"
+
+[dependencies]
+clap = { version= "3.1.9", features = ["env", "cargo"] }
+comma = "1.0.0"
+walkdir = "2"
+thiserror = "1"
