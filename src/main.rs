@@ -4,7 +4,7 @@ use std::process::Command;
 use walkdir::WalkDir;
 
 fn main() {
-    let cmd = command!()
+    let _cmd = command!()
         .args(&[
             Arg::new("config")
                 .short('s')

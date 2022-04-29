@@ -14,7 +14,7 @@ name = "umux"
 path = "src/bin/umux.rs"
 
 [dependencies]
-clap = { version= "3.1.9", features = ["env", "cargo"] }
+clap = { version= "3.1.9", features = ["derive", "env", "cargo"] }
 comma = "1.0.0"
 walkdir = "2"
 thiserror = "1"
