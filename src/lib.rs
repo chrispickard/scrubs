@@ -5,6 +5,7 @@ use std::process::{Command, Output};
 #[derive(Debug)]
 pub enum TmuxError {
     ServerNotStarted(),
+    SocketFileNotFound(),
     UnknownError(String),
 }
 
@@ -12,6 +13,8 @@ impl TmuxError {
     pub fn new_with_msg(msg: String) -> Self {
         if msg.contains("no server running") {
             return Self::ServerNotStarted();
+        } else if msg.contains("No such file or directory") {
+            return Self::SocketFileNotFound();
         }
         Self::UnknownError(msg)
     }
@@ -21,6 +24,7 @@ impl Display for TmuxError {
     fn fmt(&self, f: &mut Formatter<'_>) -> std::fmt::Result {
         let err_msg = match self {
             TmuxError::ServerNotStarted() => "server not started",
+            TmuxError::SocketFileNotFound() => "socket file not found",
             TmuxError::UnknownError(s) => s,
         };
         write!(f, "{}", err_msg)
@@ -53,8 +57,13 @@ impl Tmux {
         Ok(false)
     }
 
-    pub fn split_window() -> Result<Output, TmuxError> {
+    pub fn split_vertical() -> Result<Output, TmuxError> {
         let args = comma::parse_command("split-window -v").unwrap();
+        Self::command(args)
+    }
+
+    pub fn split_horizontal() -> Result<Output, TmuxError> {
+        let args = comma::parse_command("split-window -h").unwrap();
         Self::command(args)
     }
 
